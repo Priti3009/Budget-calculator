@@ -28,18 +28,26 @@ totalAmountButton.addEventListener("click",()=>{
     }
 })
 
+
+
 //function to modify expense list
 const modifyElement=(element,edit = false)=>{
     let parentDiv=element.parentElement;
+
     let currentBalance=balanceValue.innerText;
+
     let currentExpense=expenditureValue.innerText;
+
     let parentAmount=parentDiv.querySelector(".amount").innerText;
+
     if(edit){
         let parentText=parentDiv.querySelector(".product").innerText;
         productTitle.value=parentText;
         userAmount.value=parentAmount;
+       
     }
-    balanceValue.innerText=parseInt(currentBalance)+parseInt(parentAmount);
+  
+    balanceValue.innerText= parseInt(currentBalance) + parseInt(parentAmount);
     expenditureValue.innerText=parseInt(currentExpense)-parseInt(parentAmount);
     parentDiv.remove();
 };
@@ -58,7 +66,7 @@ const listCreator=(expenseName,expenseValue)=>{
     let deleteButton=document.createElement("button");
     deleteButton.classList.add("fa-solid","fa-trash-can","delete");
     deleteButton.style.fontSize="1.2em";
-    editButton.addEventListener("click",()=>{
+    deleteButton.addEventListener("click",()=>{
         modifyElement(deleteButton);
     });
     sublistContent.appendChild(editButton);
@@ -72,6 +80,10 @@ checkAmountButton.addEventListener("click",()=>{
         productTitleError.classList.remove("hide");
         return false;
     }
+    else{
+        productTitleError.classList.add("hide");
+    }
+
     let expense =parseInt(userAmount.value);
     let sum=parseInt(expenditureValue.innerText) + expense;
     expenditureValue.innerText=sum;
@@ -79,6 +91,6 @@ checkAmountButton.addEventListener("click",()=>{
     const totalbalance=tempAmount-sum;
     balanceValue.innerText=totalbalance;
     listCreator(productTitle.value , userAmount.value);
-    productTitle.value="";
+    productTitle.value=""; //empty expense input boxes after adding it to the list
     userAmount.value="";
 });
